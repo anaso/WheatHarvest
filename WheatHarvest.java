@@ -42,7 +42,7 @@ public class WheatHarvest
 
 	HashMap <String, Boolean> Options = new HashMap<String, Boolean>();
 
-	@SidedProxy(clientSide = "anaso_WheatHarvest.ClientProxyTick", serverSide = "anaso_WheatHarvest.CommonProxyTick")
+	@SidedProxy(clientSide = "anaso.WheatHarvest.ClientProxyTick", serverSide = "anaso.WheatHarvest.CommonProxyTick")
 	public static CommonProxyTick proxyTick;
 
 	@Mod.PreInit
