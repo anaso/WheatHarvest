@@ -45,6 +45,7 @@ public class PacketHandler implements IPacketHandler
 		int BlockID;
 		int SeedID;
 		int WheatID;
+		int SetMetaData;
 
 		try {
 			BlockX = inputStream.readInt();
@@ -52,6 +53,7 @@ public class PacketHandler implements IPacketHandler
 			BlockZ = inputStream.readInt();
 			Dimension = inputStream.readInt();
 			BlockID = inputStream.readInt();
+			SetMetaData = inputStream.readInt();
 			SeedID = inputStream.readInt();
 			WheatID = inputStream.readInt();
 		}
@@ -67,29 +69,37 @@ public class PacketHandler implements IPacketHandler
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 		if(side == Side.CLIENT)
 		{
-			//ModLoader.getMinecraftInstance().renderGlobal.loadRenderers();
-			//System.out.println("PlaySound");
 		}
 		else if(side == Side.SERVER)
 		{
 			MinecraftServer MC = ModLoader.getMinecraftServerInstance();
-			//MC.worldServers[Dimension].setBlockAndMetadataWithNotify(BlockX, BlockY, BlockZ, BlockID, 0, 0);
-			MC.worldServers[Dimension].setBlockMetadataWithNotify(BlockX, BlockY, BlockZ, 0, 0);
+			MC.worldServers[Dimension].setBlockMetadataWithNotify(BlockX, BlockY, BlockZ, SetMetaData, 0);
 
-			if(RandInt != 0)
+			if(RandInt != 0 && SeedID != 0)
 			{
+				// 種となるアイテムのドロップ
 				EntityItem spawnSeedEntity = new EntityItem(MC.worldServers[Dimension], BlockX, BlockY+1, BlockZ, new ItemStack(Item.itemsList[SeedID], RandInt));
 				MC.worldServers[Dimension].spawnEntityInWorld(spawnSeedEntity);
 			}
+			
 			if(SeedID == Item.seeds.itemID)
 			{
+				// 小麦をドロップする場合
 				EntityItem spawnWheatEntity = new EntityItem(MC.worldServers[Dimension], BlockX, BlockY+1, BlockZ, new ItemStack(Item.itemsList[WheatID], 1));
 				MC.worldServers[Dimension].spawnEntityInWorld(spawnWheatEntity);
 			}
 			else if(SeedID == Item.potato.itemID && Rand.nextInt(50) == 0)
 			{
+				// 毒のジャガイモをドロップする場合
 				EntityItem spawnWheatEntity = new EntityItem(MC.worldServers[Dimension], BlockX, BlockY+1, BlockZ, new ItemStack(Item.poisonousPotato, 1));
 				MC.worldServers[Dimension].spawnEntityInWorld(spawnWheatEntity);
+			}
+			else if(SeedID == Item.dyePowder.itemID)
+			{
+				// カカオ豆は必ず2こドロップ
+				ItemStack CacaoBeans = new ItemStack(Item.dyePowder.itemID, 2, 3);
+				EntityItem spawnSeedEntity = new EntityItem(MC.worldServers[Dimension], (double)BlockX, (double)BlockY+1, (double)BlockZ, CacaoBeans);
+				MC.worldServers[Dimension].spawnEntityInWorld(spawnSeedEntity);
 			}
 		}
 		else

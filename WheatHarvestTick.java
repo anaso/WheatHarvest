@@ -30,6 +30,7 @@ public class WheatHarvestTick implements ITickHandler
 	int NetherWartID = -1;
 	int PotatoID = -1;
 	int CarrotID = -1;
+	int CocoaID = -1;
 
 	int Suspend = 0;
 
@@ -52,6 +53,11 @@ public class WheatHarvestTick implements ITickHandler
 			PotatoID = Item.potato.itemID;
 			CarrotID = Item.carrot.itemID;
 		}
+		
+		if(this.Options.get("Cocoa").booleanValue())
+		{
+			CocoaID = Item.dyePowder.itemID;
+		}
 	}
 
 	@Override
@@ -64,12 +70,14 @@ public class WheatHarvestTick implements ITickHandler
 			if(MC.thePlayer.inventory.mainInventory[MC.thePlayer.inventory.currentItem] != null && MC.objectMouseOver != null)
 				{
 				int HaveItem = MC.thePlayer.inventory.mainInventory[MC.thePlayer.inventory.currentItem].itemID;
+				int HaveItemDamage = MC.thePlayer.inventory.mainInventory[MC.thePlayer.inventory.currentItem].getItemDamage();
 				//System.out.println("HaveItem: " + HaveItem + "  KeyState:" + MC.gameSettings.keyBindUseItem.pressed);
 
 				int WorldX = MC.objectMouseOver.blockX;
 				int WorldY = MC.objectMouseOver.blockY;
 				int WorldZ = MC.objectMouseOver.blockZ;
 
+				// 小麦の処理
 				if(HaveItem == WheatID && MC.gameSettings.keyBindUseItem.pressed)
 				{
 					WorldServer WS = ModLoader.getMinecraftServerInstance().worldServers[MC.theWorld.getWorldInfo().getVanillaDimension()];
@@ -77,7 +85,7 @@ public class WheatHarvestTick implements ITickHandler
 					//if(MC.theWorld.getBlockId(WorldX, WorldY, WorldZ) == Block.crops.blockID && MC.theWorld.getBlockMetadata(WorldX, WorldY, WorldZ) == 7)
 					if(WS.getBlockId(WorldX, WorldY, WorldZ) == Block.crops.blockID && WS.getBlockMetadata(WorldX, WorldY, WorldZ) == 7)
 					{
-						if(SendPackets(WorldX, WorldY, WorldZ, MC.theWorld.getWorldInfo().getVanillaDimension(), Block.crops.blockID, HaveItem, Item.wheat.itemID))
+						if(SendPackets(WorldX, WorldY, WorldZ, MC.theWorld.getWorldInfo().getVanillaDimension(), Block.crops.blockID, 0, HaveItem, Item.wheat.itemID))
 						{
 							Suspend = 4;
 							MC.theWorld.setBlockMetadataWithNotify(WorldX, WorldY, WorldZ, 0, 0);
@@ -85,6 +93,7 @@ public class WheatHarvestTick implements ITickHandler
 					}
 				}
 
+				// ネザーウォートの処理
 				else if(HaveItem == NetherWartID && MC.gameSettings.keyBindUseItem.pressed)
 				{
 					WorldServer WS = ModLoader.getMinecraftServerInstance().worldServers[MC.theWorld.getWorldInfo().getVanillaDimension()];
@@ -92,7 +101,7 @@ public class WheatHarvestTick implements ITickHandler
 					//if(MC.theWorld.getBlockId(WorldX, WorldY, WorldZ) == Block.crops.blockID && MC.theWorld.getBlockMetadata(WorldX, WorldY, WorldZ) == 7)
 					if(WS.getBlockId(WorldX, WorldY, WorldZ) == Block.netherStalk.blockID && WS.getBlockMetadata(WorldX, WorldY, WorldZ) == 3)
 					{
-						if(SendPackets(WorldX, WorldY, WorldZ, MC.theWorld.getWorldInfo().getVanillaDimension(), Block.netherStalk.blockID, HaveItem, Item.netherStalkSeeds.itemID))
+						if(SendPackets(WorldX, WorldY, WorldZ, MC.theWorld.getWorldInfo().getVanillaDimension(), Block.netherStalk.blockID, 0, HaveItem, Item.netherStalkSeeds.itemID))
 						{
 							Suspend = 4;
 							MC.theWorld.setBlockMetadataWithNotify(WorldX, WorldY, WorldZ, 0, 0);
@@ -100,6 +109,7 @@ public class WheatHarvestTick implements ITickHandler
 					}
 				}
 
+				// ポテトの処理
 				else if(HaveItem == PotatoID && MC.gameSettings.keyBindUseItem.pressed)
 				{
 					WorldServer WS = ModLoader.getMinecraftServerInstance().worldServers[MC.theWorld.getWorldInfo().getVanillaDimension()];
@@ -107,7 +117,7 @@ public class WheatHarvestTick implements ITickHandler
 					//if(MC.theWorld.getBlockId(WorldX, WorldY, WorldZ) == Block.crops.blockID && MC.theWorld.getBlockMetadata(WorldX, WorldY, WorldZ) == 7)
 					if(WS.getBlockId(WorldX, WorldY, WorldZ) == Block.potato.blockID && WS.getBlockMetadata(WorldX, WorldY, WorldZ) == 7)
 					{
-						if(SendPackets(WorldX, WorldY, WorldZ, MC.theWorld.getWorldInfo().getVanillaDimension(), Block.potato.blockID, HaveItem, Item.potato.itemID))
+						if(SendPackets(WorldX, WorldY, WorldZ, MC.theWorld.getWorldInfo().getVanillaDimension(), Block.potato.blockID, 0, HaveItem, Item.potato.itemID))
 						{
 							Suspend = 4;
 							MC.theWorld.setBlockMetadataWithNotify(WorldX, WorldY, WorldZ, 0, 0);
@@ -115,6 +125,7 @@ public class WheatHarvestTick implements ITickHandler
 					}
 				}
 
+				// ニンジンの処理
 				else if(HaveItem == CarrotID && MC.gameSettings.keyBindUseItem.pressed)
 				{
 					WorldServer WS = ModLoader.getMinecraftServerInstance().worldServers[MC.theWorld.getWorldInfo().getVanillaDimension()];
@@ -122,10 +133,26 @@ public class WheatHarvestTick implements ITickHandler
 					//if(MC.theWorld.getBlockId(WorldX, WorldY, WorldZ) == Block.crops.blockID && MC.theWorld.getBlockMetadata(WorldX, WorldY, WorldZ) == 7)
 					if(WS.getBlockId(WorldX, WorldY, WorldZ) == Block.carrot.blockID && WS.getBlockMetadata(WorldX, WorldY, WorldZ) == 7)
 					{
-						if(SendPackets(WorldX, WorldY, WorldZ, MC.theWorld.getWorldInfo().getVanillaDimension(), Block.carrot.blockID, HaveItem, Item.carrot.itemID))
+						if(SendPackets(WorldX, WorldY, WorldZ, MC.theWorld.getWorldInfo().getVanillaDimension(), Block.carrot.blockID, 0, HaveItem, Item.carrot.itemID))
 						{
 							Suspend = 4;
 							MC.theWorld.setBlockMetadataWithNotify(WorldX, WorldY, WorldZ, 0, 0);
+						}
+					}
+				}
+				
+				// カカオ豆の処理
+				else if(HaveItem == CocoaID && HaveItemDamage == 3 && MC.gameSettings.keyBindUseItem.pressed)
+				{
+					WorldServer WS = ModLoader.getMinecraftServerInstance().worldServers[MC.theWorld.getWorldInfo().getVanillaDimension()];
+					
+					if(WS.getBlockId(WorldX, WorldY, WorldZ) == Block.cocoaPlant.blockID && WS.getBlockMetadata(WorldX, WorldY, WorldZ) >= 8)
+					{
+						if(SendPackets(WorldX, WorldY, WorldZ, MC.theWorld.getWorldInfo().getVanillaDimension(), Block.cocoaPlant.blockID, WS.getBlockMetadata(WorldX, WorldY, WorldZ) - 8, HaveItem, Item.dyePowder.itemID))
+						{
+							Suspend = 4;
+							MC.theWorld.setBlockMetadataWithNotify(WorldX, WorldY, WorldZ, WS.getBlockMetadata(WorldX, WorldY, WorldZ) - 8, 0);
+							ModLoader.getMinecraftInstance().renderGlobal.markBlockForUpdate(WorldX, WorldY, WorldZ);
 						}
 					}
 				}
@@ -152,14 +179,14 @@ public class WheatHarvestTick implements ITickHandler
 	@Override
 	public String getLabel() { return null; }
 
-	public boolean SendPackets(int WorldX, int WorldY, int WorldZ, int DimensionNo, int BlockID, int SeedID, int WheatID)
+	public boolean SendPackets(int WorldX, int WorldY, int WorldZ, int DimensionNo, int BlockID, int SetMetaData, int SeedID, int WheatID)
 	{
 		boolean Check = false;
 		Random Rand = new Random(System.currentTimeMillis());
 		int RandInt = Rand.nextInt(3);
 
 		try {
-			ByteArrayOutputStream bos = new ByteArrayOutputStream(24);
+			ByteArrayOutputStream bos = new ByteArrayOutputStream(32);
 			DataOutputStream outputStream = new DataOutputStream(bos);
 			try {
 				outputStream.writeInt(WorldX);
@@ -167,6 +194,7 @@ public class WheatHarvestTick implements ITickHandler
 				outputStream.writeInt(WorldZ);
 				outputStream.writeInt(DimensionNo);
 				outputStream.writeInt(BlockID);
+				outputStream.writeInt(SetMetaData);
 				outputStream.writeInt(SeedID);
 				outputStream.writeInt(WheatID);
 			} catch (Exception ex) {
@@ -184,7 +212,7 @@ public class WheatHarvestTick implements ITickHandler
 				Minecraft MC = ModLoader.getMinecraftInstance();
 
 				PacketDispatcher.sendPacketToServer(packet);
-				MC.sndManager.playSoundFX("dig.grass", MC.gameSettings.soundVolume, 1.0F);
+				MC.sndManager.playSoundFX("dig.grass3", MC.gameSettings.soundVolume, 1.0F);
 				Check = true;
 			}
 		}

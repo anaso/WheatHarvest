@@ -21,7 +21,7 @@ import net.minecraftforge.common.Property;
 (
 	modid = "WheatHarvest",
 	name = "Wheat Harvest",
-	version = "1.5.2"
+	version = "1.6"
 )
 
 @NetworkMod
@@ -37,6 +37,7 @@ public class WheatHarvest
 	public static boolean Wheat = true;
 	public static boolean NetherWart = true;
 	public static boolean PotatoAndCarrot = true;
+	public static boolean Cocoa = true;
 
 	public static int MouseRightButton = -99;
 
@@ -55,13 +56,16 @@ public class WheatHarvest
 			Property PropWheat  = cfg.get(cfg.CATEGORY_GENERAL, "Wheat", true);
 			Property PropNetherWart = cfg.get(cfg.CATEGORY_GENERAL, "NetherWart", true);
 			Property PropPotatoAndCarrot = cfg.get(cfg.CATEGORY_GENERAL, "PotatoAndCarrot", true);
+			Property PropCocoa = cfg.get(cfg.CATEGORY_GENERAL, "Cocoa", true);
 			Wheat = PropWheat.getBoolean(true);
 			NetherWart = PropNetherWart.getBoolean(true);
 			PotatoAndCarrot = PropPotatoAndCarrot.getBoolean(true);
+			Cocoa = PropCocoa.getBoolean(true);
 
 			Options.put("Wheat", Boolean.valueOf(Wheat));
 			Options.put("NetherWart", Boolean.valueOf(NetherWart));
 			Options.put("PotatoAndCarrot", Boolean.valueOf(PotatoAndCarrot));
+			Options.put("Cocoa", Boolean.valueOf(Cocoa));
 		}
 		catch (Exception e)
 		{
@@ -78,11 +82,4 @@ public class WheatHarvest
 	{
 		proxyTick.RegisterTicking(Options);
 	}
-
-	/*
-	@Mod.Init
-	public void Init()
-	{
-	}
-	*/
 }
