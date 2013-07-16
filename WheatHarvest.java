@@ -6,6 +6,7 @@ import org.lwjgl.input.Keyboard;
 import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -46,7 +47,7 @@ public class WheatHarvest
 	@SidedProxy(clientSide = "anaso.WheatHarvest.ClientProxyTick", serverSide = "anaso.WheatHarvest.CommonProxyTick")
 	public static CommonProxyTick proxyTick;
 
-	@Mod.PreInit
+	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		Configuration cfg = new Configuration(event.getSuggestedConfigurationFile());
@@ -77,7 +78,7 @@ public class WheatHarvest
 		}
 	}
 
-	@Mod.PostInit
+	@EventHandler
 	public void PostInit(FMLPostInitializationEvent event)
 	{
 		proxyTick.RegisterTicking(Options);
