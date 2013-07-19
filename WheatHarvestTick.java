@@ -77,7 +77,7 @@ public class WheatHarvestTick implements ITickHandler
 				int WorldY = MC.objectMouseOver.blockY;
 				int WorldZ = MC.objectMouseOver.blockZ;
 
-				// ¬”ž‚Ìˆ—
+				// å°éº¦ã®å‡¦ç†
 				if(HaveItem == WheatID && MC.gameSettings.keyBindUseItem.pressed)
 				{
 					WorldServer WS = ModLoader.getMinecraftServerInstance().worldServers[MC.theWorld.getWorldInfo().getVanillaDimension()];
@@ -93,7 +93,7 @@ public class WheatHarvestTick implements ITickHandler
 					}
 				}
 
-				// ƒlƒU[ƒEƒH[ƒg‚Ìˆ—
+				// ãƒã‚¶ãƒ¼ã‚¦ã‚©ãƒ¼ãƒˆã®å‡¦ç†
 				else if(HaveItem == NetherWartID && MC.gameSettings.keyBindUseItem.pressed)
 				{
 					WorldServer WS = ModLoader.getMinecraftServerInstance().worldServers[MC.theWorld.getWorldInfo().getVanillaDimension()];
@@ -109,7 +109,7 @@ public class WheatHarvestTick implements ITickHandler
 					}
 				}
 
-				// ƒ|ƒeƒg‚Ìˆ—
+				// ãƒãƒ†ãƒˆã®å‡¦ç†
 				else if(HaveItem == PotatoID && MC.gameSettings.keyBindUseItem.pressed)
 				{
 					WorldServer WS = ModLoader.getMinecraftServerInstance().worldServers[MC.theWorld.getWorldInfo().getVanillaDimension()];
@@ -125,7 +125,7 @@ public class WheatHarvestTick implements ITickHandler
 					}
 				}
 
-				// ƒjƒ“ƒWƒ“‚Ìˆ—
+				// ãƒ‹ãƒ³ã‚¸ãƒ³ã®å‡¦ç†
 				else if(HaveItem == CarrotID && MC.gameSettings.keyBindUseItem.pressed)
 				{
 					WorldServer WS = ModLoader.getMinecraftServerInstance().worldServers[MC.theWorld.getWorldInfo().getVanillaDimension()];
@@ -141,7 +141,7 @@ public class WheatHarvestTick implements ITickHandler
 					}
 				}
 				
-				// ƒJƒJƒI“¤‚Ìˆ—
+				// ã‚«ã‚«ã‚ªè±†ã®å‡¦ç†
 				else if(HaveItem == CocoaID && HaveItemDamage == 3 && MC.gameSettings.keyBindUseItem.pressed)
 				{
 					WorldServer WS = ModLoader.getMinecraftServerInstance().worldServers[MC.theWorld.getWorldInfo().getVanillaDimension()];

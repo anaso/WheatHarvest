@@ -77,29 +77,30 @@ public class PacketHandler implements IPacketHandler
 
 			if(RandInt != 0 && SeedID != 0)
 			{
-				// í‚Æ‚È‚éƒAƒCƒeƒ€‚Ìƒhƒƒbƒv
+				// ç¨®ã¨ãªã‚‹ã‚¢ã‚¤ãƒ†ãƒ ã®ãƒ‰ãƒ­ãƒƒãƒ—
 				EntityItem spawnSeedEntity = new EntityItem(MC.worldServers[Dimension], BlockX, BlockY+1, BlockZ, new ItemStack(Item.itemsList[SeedID], RandInt));
 				MC.worldServers[Dimension].spawnEntityInWorld(spawnSeedEntity);
 			}
 			
 			if(SeedID == Item.seeds.itemID)
 			{
-				// ¬”‚ğƒhƒƒbƒv‚·‚éê‡
+				// å°éº¦ã‚’ãƒ‰ãƒ­ãƒƒãƒ—ã™ã‚‹å ´åˆ
 				EntityItem spawnWheatEntity = new EntityItem(MC.worldServers[Dimension], BlockX, BlockY+1, BlockZ, new ItemStack(Item.itemsList[WheatID], 1));
 				MC.worldServers[Dimension].spawnEntityInWorld(spawnWheatEntity);
 			}
 			else if(SeedID == Item.potato.itemID && Rand.nextInt(50) == 0)
 			{
-				// “Å‚ÌƒWƒƒƒKƒCƒ‚‚ğƒhƒƒbƒv‚·‚éê‡
+				// æ¯’ã®ã‚¸ãƒ£ã‚¬ã‚¤ãƒ¢ã‚’ãƒ‰ãƒ­ãƒƒãƒ—ã™ã‚‹å ´åˆ
 				EntityItem spawnWheatEntity = new EntityItem(MC.worldServers[Dimension], BlockX, BlockY+1, BlockZ, new ItemStack(Item.poisonousPotato, 1));
 				MC.worldServers[Dimension].spawnEntityInWorld(spawnWheatEntity);
 			}
 			else if(SeedID == Item.dyePowder.itemID)
 			{
-				// ƒJƒJƒI“¤‚Í•K‚¸2‚±ƒhƒƒbƒv
+				// ã‚«ã‚«ã‚ªè±†ã¯å¿…ãš2ã“ãƒ‰ãƒ­ãƒƒãƒ—
 				ItemStack CacaoBeans = new ItemStack(Item.dyePowder.itemID, 2, 3);
 				EntityItem spawnSeedEntity = new EntityItem(MC.worldServers[Dimension], (double)BlockX, (double)BlockY+1, (double)BlockZ, CacaoBeans);
 				MC.worldServers[Dimension].spawnEntityInWorld(spawnSeedEntity);
+				// ã‚¤ã‚«ã‚¹ãƒŸãŒãŸã¾ã«ãƒ‰ãƒ­ãƒƒãƒ—ã™ã‚‹ï¼Ÿ
 			}
 		}
 		else
