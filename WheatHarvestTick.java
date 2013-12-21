@@ -53,7 +53,7 @@ public class WheatHarvestTick implements ITickHandler
 			PotatoID = Item.potato.itemID;
 			CarrotID = Item.carrot.itemID;
 		}
-		
+
 		if(this.Options.get("Cocoa").booleanValue())
 		{
 			CocoaID = Item.dyePowder.itemID;
@@ -65,7 +65,7 @@ public class WheatHarvestTick implements ITickHandler
 	{
 		Minecraft MC = ModLoader.getMinecraftInstance();
 
-		if(MC.theWorld != null && Suspend == 0)
+		if(MC.theWorld != null && Suspend == 0 && MC.isSingleplayer())
 		{
 			if(MC.thePlayer.inventory.mainInventory[MC.thePlayer.inventory.currentItem] != null && MC.objectMouseOver != null)
 				{
@@ -140,12 +140,12 @@ public class WheatHarvestTick implements ITickHandler
 						}
 					}
 				}
-				
+
 				// カカオ豆の処理
 				else if(HaveItem == CocoaID && HaveItemDamage == 3 && MC.gameSettings.keyBindUseItem.pressed)
 				{
 					WorldServer WS = ModLoader.getMinecraftServerInstance().worldServers[MC.theWorld.getWorldInfo().getVanillaDimension()];
-					
+
 					if(WS.getBlockId(WorldX, WorldY, WorldZ) == Block.cocoaPlant.blockID && WS.getBlockMetadata(WorldX, WorldY, WorldZ) >= 8)
 					{
 						if(SendPackets(WorldX, WorldY, WorldZ, MC.theWorld.getWorldInfo().getVanillaDimension(), Block.cocoaPlant.blockID, WS.getBlockMetadata(WorldX, WorldY, WorldZ) - 8, HaveItem, Item.dyePowder.itemID))
