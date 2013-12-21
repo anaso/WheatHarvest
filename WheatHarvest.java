@@ -27,7 +27,7 @@ import net.minecraftforge.common.Property;
 
 @NetworkMod
 (
-	clientSideRequired=true,
+	clientSideRequired=false,
 	serverSideRequired=false,
 	channels={"anaso_WH"},
 	packetHandler = PacketHandler.class
